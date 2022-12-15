@@ -38,6 +38,11 @@ namespace Persistence
                         Bio = "I am a test user #3"
                     },
                 };
+                
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
 
                 await context.SaveChangesAsync();
             }

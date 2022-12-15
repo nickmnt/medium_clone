@@ -72,6 +72,7 @@ namespace API.Controllers
                 DisplayName = registerDto.DisplayName,
                 Email = registerDto.Email,
                 UserName = registerDto.UserName,
+                Bio = ""
             };
 
             var results = await _userManager.CreateAsync(user, registerDto.Password);
