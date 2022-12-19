@@ -13,6 +13,10 @@ using Persistence;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// This controller handles authentication.
+    /// Examples include: logging in, registering, getting the current user.
+    /// </summary>
     [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
@@ -34,6 +38,12 @@ namespace API.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// This method logs in the user and returns a generated JWT token that the user will save and send with
+        /// its future requests. 
+        /// </summary>
+        /// <param name="loginDto">The login information sent by the user.</param>
+        /// <returns></returns>
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
@@ -53,6 +63,12 @@ namespace API.Controllers
             return Unauthorized();
         }
         
+        /// <summary>
+        /// This method creates a new user and returns a generated JWT token that the user will save and append to its
+        /// future requests.
+        /// </summary>
+        /// <param name="registerDto">The register information sent by the user.</param>
+        /// <returns></returns>
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto) {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
@@ -87,6 +103,10 @@ namespace API.Controllers
             return BadRequest("Problem registering the user.");
         }    
         
+        /// <summary>
+        /// The user information for the current logged-in user is queried and returned.
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
