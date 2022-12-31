@@ -1,4 +1,6 @@
 ﻿using System;
+using Application.Articles;
+using Application.Core;
 using Application.Interfaces;
 using Infrastructure.Security;
 using MediatR;
@@ -67,13 +69,13 @@ namespace API.Extensions
                     policy.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:3000","https://localhost:3000");
                 });
             });
-            // services.AddMediatR(typeof(List.Handler).Assembly);
-            // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddSignalR();
             
             // needed to load configuration from appsettings.json
-            services.AddOptions();
+            // services.AddOptions();
 
             return services;
         }
