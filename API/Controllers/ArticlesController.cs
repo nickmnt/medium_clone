@@ -20,7 +20,7 @@ public class ArticlesController : BaseApiController
         return HandleResult(result);
     }
     
-    [HttpGet]
+    [HttpGet("search")]
     public async Task<ActionResult<List<ArticleDto>>> SearchArticles(string bodySubstring, string titleSubstring,
         string authorNameSubstring)
     {
@@ -48,14 +48,14 @@ public class ArticlesController : BaseApiController
         return HandleResult(result);
     }
     
-    [HttpPut]
+    [HttpPut("like")]
     public async Task<ActionResult<Unit>> Like(int articleId)
     {
         var result = await Mediator.Send(new Like.Command {ArticleId = articleId});
         return HandleResult(result);
     }
     
-    [HttpPut]
+    [HttpPut("save")]
     public async Task<ActionResult<Unit>> Save(int articleId)
     {
         var result = await Mediator.Send(new Save.Command {ArticleId = articleId});
@@ -63,7 +63,7 @@ public class ArticlesController : BaseApiController
     }
     
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPut("approve")]
     public async Task<ActionResult<Unit>> ToggleIsApproved(int articleId, bool newIsApproved)
     {
         var result = await Mediator.Send(new Approve.Command {ArticleId = articleId, NewIsApproved = newIsApproved});

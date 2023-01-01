@@ -14,7 +14,7 @@ public class ProfilesController : BaseApiController
         return HandleResult(result);
     }
     
-    [HttpPut]
+    [HttpPut("activation")]
     public async Task<ActionResult<Unit>> ToggleActivation(string targetUsername, bool newIsActive)
     {
         var result = await Mediator.Send(new ToggleActivation.Command {targetUsername = targetUsername, 
@@ -23,7 +23,7 @@ public class ProfilesController : BaseApiController
     }
     
     [Authorize(Policy = "IsProfileOwner")]
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<ActionResult<Unit>> UpdateProfile(string targetUsername, string bio, string displayName)
     {
         var result = await Mediator.Send(new Update.Command {TargetUsername = targetUsername, 
@@ -32,7 +32,7 @@ public class ProfilesController : BaseApiController
     }
     
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPut("admin-update")]
     public async Task<ActionResult<Unit>> UpdateProfileAdmin(string targetUsername, string bio, string displayName)
     {
         var result = await Mediator.Send(new Update.Command {TargetUsername = targetUsername, 
