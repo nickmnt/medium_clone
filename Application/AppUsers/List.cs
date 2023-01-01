@@ -19,12 +19,12 @@ namespace Application.AppUsers
         /// Sort by the number of likes the author has gathered through their articles (descending) if
         /// OrderByArticleLikes is true.
         /// </summary>
-        public class Query : IRequest<Result<List<UserDto>>>
+        public class Query : IRequest<Result<List<ProfileDto>>>
         {
             public bool OrderByArticleLikes { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<List<UserDto>>>
+        public class Handler : IRequestHandler<Query, Result<List<ProfileDto>>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -37,7 +37,7 @@ namespace Application.AppUsers
                 _userAccessor = userAccessor;
             }
             
-            public async Task<Result<List<UserDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<ProfileDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var initialQuery = _context.Articles
                     .Include(x => x.Likes)
@@ -49,9 +49,9 @@ namespace Application.AppUsers
                     initialQuery = initialQuery.OrderByDescending(d => d.Likes.Count);
                 }
                 
-                var query = initialQuery.ProjectTo<UserDto>(_mapper.ConfigurationProvider);
+                var query = initialQuery.ProjectTo<ProfileDto>(_mapper.ConfigurationProvider);
                 
-                return Result<List<UserDto>>.Success(await query.ToListAsync(cancellationToken));
+                return Result<List<ProfileDto>>.Success(await query.ToListAsync(cancellationToken));
             }
         }
         

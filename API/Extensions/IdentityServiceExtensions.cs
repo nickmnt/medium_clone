@@ -65,6 +65,19 @@ namespace API.Extensions
                     };
                 });
             
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsProfileOwner", policy =>
+                {
+                    policy.AddRequirements(new IsProfileOwnerRequirement());
+                });
+                options.AddPolicy("IsArticleOwner", policy =>
+                {
+                    policy.AddRequirements(new IsArticleOwnerRequirement());
+                });
+            });
+            services.AddTransient<IAuthorizationHandler, IsProfileOwnerRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, IsArticleOwnerRequirementHandler>();
             services.AddScoped<TokenService>();
             
             return services;
