@@ -21,6 +21,7 @@ namespace API.Extensions
                 {
                     options.Password.RequireNonAlphanumeric = false;
                 })
+                .AddRoles<Role>()
                 .AddEntityFrameworkStores<DataContext>()
                 .AddSignInManager<SignInManager<AppUser>>();
 

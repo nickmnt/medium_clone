@@ -57,7 +57,7 @@ namespace API.Controllers
 
             if (result.Succeeded)
             {
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
             }
 
             return Unauthorized();
@@ -97,7 +97,7 @@ namespace API.Controllers
             
             if (results.Succeeded)
             {
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
             }
 
             return BadRequest("Problem registering the user.");
@@ -117,15 +117,15 @@ namespace API.Controllers
             if (user == null)
                 return NotFound("User is not found");
             
-            return CreateUserObject(user);
+            return await CreateUserObject(user);
         }
 
-        private UserDto CreateUserObject(AppUser user)
+        private async Task<UserDto> CreateUserObject(AppUser user)
         {
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 Username = user.UserName
             };
         }

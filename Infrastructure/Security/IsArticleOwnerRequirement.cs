@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -27,21 +28,21 @@ namespace Infrastructure.Security
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsArticleOwnerRequirement requirement)
         {
-            var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = context.User.FindFirstValue(ClaimTypes.Name);
 
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
+            var user = _dbContext.Users.FirstOrDefault(x => x.UserName == username);
 
             if (user == null)
             {
                 return Task.CompletedTask;
             }
             
-            var articleId = Int32.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues
-                .SingleOrDefault(x => x.Key == "articleId").Value?.ToString()!);
+            var articleId = Int32.Parse(_httpContextAccessor.HttpContext!.Request.Query["articleId"].ToString());
 
             var article = _dbContext.Articles
+                .Include(x => x.Author)
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == articleId && x.AuthorId == userId)
+                .SingleOrDefaultAsync(x => x.Id == articleId && x.Author.UserName == username)
                 .Result;
             
 

@@ -16,14 +16,18 @@ public class Create
     /// </summary>
     public class Command : IRequest<Result<Unit>>
     {
-        public Article Article { get; set; }
+        public string Title;
+        public string Body;
+        public int CategoryId;
     }
     
     public class CommandValidator : AbstractValidator<Command>
     {
         public CommandValidator()
         {
-            RuleFor(x => x.Article).SetValidator(new ArticleValidator());
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.Body).NotEmpty();
+            RuleFor(x => x.CategoryId).GreaterThan(0);
         }
     }
 
@@ -42,10 +46,18 @@ public class Create
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => 
                 x.UserName == _userAccessor.GetUsername());
+            var category = await _context.Categories.FirstOrDefaultAsync(x =>
+                x.Id == request.CategoryId);
+            
+            var article = new Article
+            {
+                Title = request.Title,
+                Body = request.Body,
+                Author = user,
+                Category = category
+            };
 
-            request.Article.Author = user;
-
-            _context.Articles.Add(request.Article);
+            _context.Articles.Add(article);
 
             var result = await _context.SaveChangesAsync() > 0;
 

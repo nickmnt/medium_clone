@@ -34,17 +34,23 @@ public class ArticlesController : BaseApiController
     }
     
     [HttpPost]
-    public async Task<ActionResult<Unit>> Create([FromQuery] Article article)
+    public async Task<ActionResult<Unit>> Create(string title, string body, int categoryId)
     {
-        var result = await Mediator.Send(new Create.Command {Article = article});
+        var result = await Mediator.Send(new Create.Command {Title = title, Body = body, 
+            CategoryId = categoryId});
         return HandleResult(result);
     }
     
     [Authorize(Policy = "IsArticleOwner")]
     [HttpPut]
-    public async Task<ActionResult<Unit>> Update([FromQuery] Article article, int articleId)
+    public async Task<ActionResult<Unit>> Update(string title, string body, int categoryId, int articleId)
     {
-        var result = await Mediator.Send(new Update.Command {Article = article});
+        var result = await Mediator.Send(new Update.Command {
+            ArticleId = articleId,
+            Title = title,
+            Body = body,
+            CategoryId = categoryId
+        });
         return HandleResult(result);
     }
     

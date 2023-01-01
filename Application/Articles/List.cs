@@ -60,7 +60,7 @@ namespace Application.Articles
                     
                 var query = initialQuery.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider);
 
-                if (request.Category is not "" or null)
+                if (!String.IsNullOrEmpty(request.Category))
                 {
                     query = query.Where(x =>
                         x.Category.Name == request.Category);

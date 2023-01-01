@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Infrastructure.Security
@@ -27,9 +23,9 @@ namespace Infrastructure.Security
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsProfileOwnerRequirement requirement)
         {
-            var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = context.User.FindFirstValue(ClaimTypes.Name);
 
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
+            var user = _dbContext.Users.FirstOrDefault(x => x.UserName == username);
 
             if (user == null)
             {
@@ -42,7 +38,7 @@ namespace Infrastructure.Security
             if(targetUsername == null)
                 return Task.CompletedTask;
             
-            if(targetUsername == userId)
+            if(targetUsername == username)
                 context.Succeed(requirement);
 
             return Task.CompletedTask;

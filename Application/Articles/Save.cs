@@ -40,7 +40,9 @@ public class Save
             var user = await _context.Users.FirstOrDefaultAsync(x => 
                 x.UserName == _userAccessor.GetUsername());
 
-            var article = await _context.Articles.FirstOrDefaultAsync(x =>
+            var article = await _context.Articles
+                .Include(x => x.Saves)
+                .FirstOrDefaultAsync(x =>
                 x.Id == request.ArticleId);
 
             if (article == null || user == null)

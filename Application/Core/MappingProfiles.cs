@@ -13,11 +13,17 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
+            CreateMap<AppUser, ProfileDto>()
+                .ForMember(x => x.LikedCount,
+                    o => o.MapFrom(x => 
+                        x.AuthoredArticles.Sum(y => y.Likes.Count)));
             CreateMap<Article, ArticleDto>()
                 .ForMember(d => d.Category,
                     o => 
-                        o.MapFrom(s => s.Category));
-            CreateMap<AppUser, ProfileDto>();
+                        o.MapFrom(s => s.Category))
+                .ForMember(d => d.Likes,
+                    o =>
+                        o.MapFrom(s => s.Likes));
             CreateMap<Comment, CommentDto>();
             CreateMap<Category, CategoryDto>();
         }

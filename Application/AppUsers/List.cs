@@ -39,14 +39,14 @@ namespace Application.AppUsers
             
             public async Task<Result<List<ProfileDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var initialQuery = _context.Articles
-                    .Include(x => x.Likes)
-                    .Include(x => x.Category)
+                var initialQuery = _context.Users
+                    .Include(x => x.AuthoredArticles)
+                    .ThenInclude(x => x.Likes)
                     .AsQueryable();
 
                 if (request.OrderByArticleLikes)
                 {
-                    initialQuery = initialQuery.OrderByDescending(d => d.Likes.Count);
+                    initialQuery = initialQuery.OrderByDescending(d => d.AuthoredArticles.Sum(x => x.Likes.Count));
                 }
                 
                 var query = initialQuery.ProjectTo<ProfileDto>(_mapper.ConfigurationProvider);
