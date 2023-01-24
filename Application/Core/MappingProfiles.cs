@@ -15,8 +15,11 @@ namespace Application.Core
         {
             CreateMap<AppUser, ProfileDto>()
                 .ForMember(x => x.LikedCount,
-                    o => o.MapFrom(x => 
-                        x.AuthoredArticles.Sum(y => y.Likes.Count)));
+                    o => o.MapFrom(x =>
+                        x.AuthoredArticles.Sum(y => y.Likes.Count)))
+                .ForMember(x => x.Image,
+                    o => o.MapFrom(x =>
+                        x.Photo.Url));
             CreateMap<Article, ArticleDto>()
                 .ForMember(d => d.Category,
                     o => 

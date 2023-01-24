@@ -10,6 +10,7 @@ namespace Domain
         public string DisplayName { get; set; }
         public string Bio { get; set; }
         public bool IsActive { get; set; } = true;
+        public ProfilePhoto Photo { get; set; }
         [InverseProperty("Likes")]
         public ICollection<Article> LikedArticles { get; set; } = new List<Article>();
         [InverseProperty("Saves")]
