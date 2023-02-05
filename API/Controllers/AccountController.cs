@@ -39,7 +39,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// This method logs in the user and returns a generated JWT token that the user will save and send with
+        /// The user can login and the method returns a generated JWT token that the user will save and send with
         /// its future requests. 
         /// </summary>
         /// <param name="loginDto">The login information sent by the user.</param>
@@ -92,6 +92,8 @@ namespace API.Controllers
             };
 
             var results = await _userManager.CreateAsync(user, registerDto.Password);
+            
+            await _userManager.AddToRoleAsync(user, "Member");
 
             await _context.SaveChangesAsync();
             

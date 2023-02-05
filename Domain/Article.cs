@@ -9,6 +9,8 @@ public class Article
     public string Title { get; set; }
     [Required]
     public Category Category { get; set; }
+
+    public ArticlePhoto Photo { get; set; }
     public string Body { get; set; }
     public bool IsApproved { get; set; }
     [ForeignKey("Author")]

@@ -10,6 +10,7 @@ public class ArticleDto
     public string Title { get; set; }
     public string Body { get; set; }
     public bool IsApproved { get; set; }
+    public string Image { get; set; }
     public ProfileDto Author { get; set; }
 
     public List<ProfileDto> Likes { get; set; }

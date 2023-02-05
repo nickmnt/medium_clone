@@ -29,7 +29,10 @@ namespace Application.Core
                         o.MapFrom(s => s.Likes))
                 .ForMember(d => d.Author,
                     o =>
-                        o.MapFrom(s => s.Author));
+                        o.MapFrom(s => s.Author))
+                .ForMember(d => d.Image,
+                    o => 
+                        o.MapFrom(x => x.Photo.Url));
             CreateMap<Comment, CommentDto>();
             CreateMap<Category, CategoryDto>();
         }
