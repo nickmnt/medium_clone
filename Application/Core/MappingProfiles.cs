@@ -22,11 +22,14 @@ namespace Application.Core
                         x.Photo.Url));
             CreateMap<Article, ArticleDto>()
                 .ForMember(d => d.Category,
-                    o => 
+                    o =>
                         o.MapFrom(s => s.Category))
                 .ForMember(d => d.Likes,
                     o =>
-                        o.MapFrom(s => s.Likes));
+                        o.MapFrom(s => s.Likes))
+                .ForMember(d => d.Author,
+                    o =>
+                        o.MapFrom(s => s.Author));
             CreateMap<Comment, CommentDto>();
             CreateMap<Category, CategoryDto>();
         }

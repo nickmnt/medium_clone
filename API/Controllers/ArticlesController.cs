@@ -8,6 +8,7 @@ namespace API.Controllers;
 
 public class ArticlesController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<List<ArticleDto>>> GetArticles(string category, bool orderByDate, bool orderByLikes)
     {
