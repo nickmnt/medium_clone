@@ -25,4 +25,8 @@
     <Folder Include="wwwroot\Resources\Images" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Application.Articles;
 using Application.Core;
 using Application.Interfaces;
@@ -20,6 +21,10 @@ namespace API.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.**
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);  
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme() {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
