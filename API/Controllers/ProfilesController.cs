@@ -20,6 +20,17 @@ public class ProfilesController : BaseApiController
     }
     
     /// <summary>
+    /// Returns the list of saved articles of the current user..
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("saved")]
+    public async Task<ActionResult<List<ProfileDto>>> GetSavedArticles()
+    {
+        var result = await Mediator.Send(new ListSaves.Query());
+        return HandleResult(result);
+    }
+    
+    /// <summary>
     /// Changes the isActive property of a user. (Must be admin)
     /// </summary>
     /// <param name="targetUsername">Username of the target user.</param>
