@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import { useStore } from "./app/stores/store";
+import Feed from "./pages/feed/feed.page";
+import Write from "./pages/write/write.page";
+import Read from "./pages/read/read";
+import Search from "./pages/search/search";
 
 function App() {
+  const {
+    userStore: { getUser },
+  } = useStore();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/new" element={<Write />} />
+        <Route path="/edit/:id" element={<Write />} />
+        <Route path="/read/:id" element={<Read />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/" element={<Feed />} />
+      </Routes>
+      <ToastContainer position="top-center" closeOnClick rtl />
+    </>
   );
 }
 

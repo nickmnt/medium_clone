@@ -3,7 +3,8 @@ import { PaginatedResult } from "../models/pagination";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL =
+  process.env.REACT_APP_API_URL || "https://localhost:7190/api";
 
 console.log(process.env.REACT_APP_API_URL);
 const sleep = (delay: number) => {
@@ -62,13 +63,14 @@ const requests = {
 };
 
 const Account = {
-  current: () => requests.get<User>("/account"),
-  login: (user: UserFormValues) => requests.post<User>("/account/login", user),
+  current: () => requests.get<User>("/Account"),
+  login: (user: UserFormValues) => requests.post<User>("/Account/login", user),
   register: (user: UserFormValues) =>
-    requests.post<User>("/account/register", user),
+    requests.post<User>("/Account/register", user),
 };
 
 const agent = {
+  requests,
   Account,
 };
 

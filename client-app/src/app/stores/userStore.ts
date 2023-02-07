@@ -5,6 +5,7 @@ import { store } from "./store";
 
 export default class UserStore {
   user: User | null = null;
+  isLoadingUser: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -18,7 +19,9 @@ export default class UserStore {
     try {
       const user = await agent.Account.login(creds);
       store.commonStore.setToken(user.token);
+
       runInAction(() => (this.user = user));
+      store.contentStore.getSavedArticles();
     } catch (error) {
       throw error;
     }
@@ -32,11 +35,16 @@ export default class UserStore {
 
   getUser = async () => {
     try {
+      runInAction(() => (this.isLoadingUser = true));
       const user = await agent.Account.current();
-      // console.log('logginedINUser', user);
       runInAction(() => (this.user = user));
+      store.contentStore.getSavedArticles();
     } catch (error) {
+      store.commonStore.setToken(null);
+      window.localStorage.removeItem("jwt");
       console.log(error);
+    } finally {
+      runInAction(() => (this.isLoadingUser = false));
     }
   };
 
