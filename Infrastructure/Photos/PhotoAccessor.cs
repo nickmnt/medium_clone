@@ -37,7 +37,7 @@ namespace Infrastructure.Photos
 
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

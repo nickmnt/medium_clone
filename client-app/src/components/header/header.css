@@ -1,0 +1,33 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--surface-color);
+  padding: 0 6rem;
+}
+
+.box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.box:first-child {
+  justify-content: flex-start;
+}
+
+.box:last-child {
+ justify-content: flex-end; 
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.title span {
+  color: var(--primary-color);
+}
