@@ -1,7 +1,10 @@
 ﻿using Application.AppUsers;
+using Application.Articles;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using List = Application.AppUsers.List;
+using Update = Application.AppUsers.Update;
 
 namespace API.Controllers;
 
@@ -24,7 +27,7 @@ public class ProfilesController : BaseApiController
     /// </summary>
     /// <returns></returns>
     [HttpGet("saved")]
-    public async Task<ActionResult<List<ProfileDto>>> GetSavedArticles()
+    public async Task<ActionResult<List<ArticleDto>>> GetSavedArticles()
     {
         var result = await Mediator.Send(new ListSaves.Query());
         return HandleResult(result);
