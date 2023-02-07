@@ -13,8 +13,8 @@ public class Update
 {
     public class Command : IRequest<Result<Unit>>
     {
-        public string Name;
-        public int CategoryId;
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
     }
     
     public class CommandValidator : AbstractValidator<Command>

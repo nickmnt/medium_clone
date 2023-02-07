@@ -13,7 +13,7 @@ public class Delete
 {
     public class Command : IRequest<Result<Unit>>
     {
-        public int CategoryId;
+        public int CategoryId { get; set; }
     }
     
     public class CommandValidator : AbstractValidator<Command>

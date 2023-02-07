@@ -13,7 +13,7 @@ public class Create
 {
     public class Command : IRequest<Result<Unit>>
     {
-        public string Name;
+        public string Name { get; set; }
     }
     
     public class CommandValidator : AbstractValidator<Command>

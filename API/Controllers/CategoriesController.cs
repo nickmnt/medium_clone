@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Create = Application.Comments.Create;
 
 namespace API.Controllers;
 
@@ -26,45 +27,39 @@ public class CategoriesController : BaseApiController
     /// <summary>
     /// Creates a new category. (Must be admin)
     /// </summary>
-    /// <param name="name">The name of the new category.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<ActionResult<Unit>> Create(string name)
+    public async Task<ActionResult<Unit>> Create(Create.Command command)
     {
-        var result = await Mediator.Send(new Create.Command { Name = name});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
     
     /// <summary>
     /// Updates an existing category. (Must be admin)
     /// </summary>
-    /// <param name="name">The new name of the category.</param>
-    /// <param name="categoryId">Id of the category.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [Authorize(Roles = "Admin")]
     [HttpPut]
-    public async Task<ActionResult<Unit>> Update(string name, int categoryId)
+    public async Task<ActionResult<Unit>> Update(Update.Command command)
     {
-        var result = await Mediator.Send(new Update.Command {
-            Name = name,
-            CategoryId = categoryId
-        });
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
     
     /// <summary>
     /// Deletes a category. (Must be admin)
     /// </summary>
-    /// <param name="categoryId">Id of the category.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [Authorize(Roles = "Admin")]
     [HttpDelete]
-    public async Task<ActionResult<Unit>> Delete(int categoryId)
+    public async Task<ActionResult<Unit>> Delete(Delete.Command command)
     {
-        var result = await Mediator.Send(new Delete.Command {
-            CategoryId = categoryId
-        });
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
 }

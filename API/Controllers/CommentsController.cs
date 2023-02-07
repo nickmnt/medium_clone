@@ -26,13 +26,12 @@ public class CommentsController : BaseApiController
     /// <summary>
     /// Add a new comment to an article.
     /// </summary>
-    /// <param name="articleId">Id of the article.</param>
-    /// <param name="body">Body of the comment.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ActionResult<Unit>> Create(int articleId, string body)
+    public async Task<ActionResult<Unit>> Create(Create.Command command)
     {
-        var result = await Mediator.Send(new Create.Command {ArticleId = articleId, Body = body});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
 }

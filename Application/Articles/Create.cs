@@ -16,9 +16,9 @@ public class Create
     /// </summary>
     public class Command : IRequest<Result<Unit>>
     {
-        public string Title;
-        public string Body;
-        public int CategoryId;
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public int CategoryId { get; set; }
     }
     
     public class CommandValidator : AbstractValidator<Command>

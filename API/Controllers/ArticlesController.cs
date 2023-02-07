@@ -1,4 +1,5 @@
-﻿using Application.Articles;
+﻿using API.DTOs;
+using Application.Articles;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -51,35 +52,30 @@ public class ArticlesController : BaseApiController
     /// <summary>
     /// Create a new article.
     /// </summary>
-    /// <param name="title">Title of the article.</param>
-    /// <param name="body">Body of the article.</param>
-    /// <param name="categoryId">The Id of the article's category.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ActionResult<Unit>> Create(string title, string body, int categoryId)
+    public async Task<ActionResult<Unit>> Create(Create.Command command)
     {
-        var result = await Mediator.Send(new Create.Command {Title = title, Body = body, 
-            CategoryId = categoryId});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
     
     /// <summary>
     /// Update the article. (Must be owner)
     /// </summary>
-    /// <param name="title">The new title of the article.</param>
-    /// <param name="body">The new body of the article.</param>
-    /// <param name="categoryId">The new category of the article.</param>
-    /// <param name="articleId">The id of the article being edited.</param>
+    /// <param name="dto">Contains the data of the updated article.</param>
+    /// <param name="articleId">Id of the article being updated.</param>
     /// <returns></returns>
     [Authorize(Policy = "IsArticleOwner")]
     [HttpPut]
-    public async Task<ActionResult<Unit>> Update(string title, string body, int categoryId, int articleId)
+    public async Task<ActionResult<Unit>> Update(UpdateArticleDto dto, int articleId)
     {
         var result = await Mediator.Send(new Update.Command {
             ArticleId = articleId,
-            Title = title,
-            Body = body,
-            CategoryId = categoryId
+            Title = dto.Title,
+            Body = dto.Body,
+            CategoryId = dto.CategoryId
         });
         return HandleResult(result);
     }
@@ -87,38 +83,37 @@ public class ArticlesController : BaseApiController
     /// <summary>
     /// Add/Remove (Toggle) the article to the list of articles liked by the current user.
     /// </summary>
-    /// <param name="articleId">Id of the article to be liked.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [HttpPut("like")]
-    public async Task<ActionResult<Unit>> Like(int articleId)
+    public async Task<ActionResult<Unit>> Like(Like.Command command)
     {
-        var result = await Mediator.Send(new Like.Command {ArticleId = articleId});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
     
     /// <summary>
     /// Add/Remove (Toggle) the article to the list of articles liked by the current user.
     /// </summary>
-    /// <param name="articleId">Id of the article to be saved.</param>
+    /// <param name="command">The command.</param>
     /// <returns></returns>
     [HttpPut("save")]
-    public async Task<ActionResult<Unit>> Save(int articleId)
+    public async Task<ActionResult<Unit>> Save(Save.Command command)
     {
-        var result = await Mediator.Send(new Save.Command {ArticleId = articleId});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
     
     /// <summary>
     /// Change the isApproved property of an article. (Must be admin)
     /// </summary>
-    /// <param name="articleId">Id of the article</param>
-    /// <param name="newIsApproved">New value for isApproved</param>
+    /// <param name="command">The command</param>
     /// <returns></returns>
     [Authorize(Roles = "Admin")]
     [HttpPut("approve")]
-    public async Task<ActionResult<Unit>> ToggleIsApproved(int articleId, bool newIsApproved)
+    public async Task<ActionResult<Unit>> ToggleIsApproved(Approve.Command command)
     {
-        var result = await Mediator.Send(new Approve.Command {ArticleId = articleId, NewIsApproved = newIsApproved});
+        var result = await Mediator.Send(command);
         return HandleResult(result);
     }
 }
