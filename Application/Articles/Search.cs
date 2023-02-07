@@ -40,23 +40,11 @@ namespace Application.Articles
             {
                 var initialQuery = _context.Articles
                     .Include(x => x.Author)
+                    .Where(x => (!String.IsNullOrEmpty(request.TitleSubstring) && x.Title.Contains(request.TitleSubstring))
+                    || (!String.IsNullOrEmpty(request.BodySubstring) && x.Body.Contains(request.BodySubstring))
+                    || (!String.IsNullOrEmpty(request.AuthorNameSubstring) && x.Author.DisplayName.Contains(request.AuthorNameSubstring)))
                     .AsQueryable();
 
-                if (!String.IsNullOrEmpty(request.TitleSubstring))
-                {
-                    initialQuery = initialQuery.Where(x => x.Title.Contains(request.TitleSubstring));
-                }
-                
-                if (!String.IsNullOrEmpty(request.BodySubstring))
-                {
-                    initialQuery = initialQuery.Where(x => x.Body.Contains(request.BodySubstring));
-                }
-                
-                if (!String.IsNullOrEmpty(request.AuthorNameSubstring))
-                {
-                    initialQuery = initialQuery.Where(x => x.Author.DisplayName.Contains(request.AuthorNameSubstring));
-                }
-                    
                 var query = initialQuery.ProjectTo<ArticleDto>(_mapper.ConfigurationProvider);
 
                 return Result<List<ArticleDto>>.Success(await query.ToListAsync(cancellationToken));

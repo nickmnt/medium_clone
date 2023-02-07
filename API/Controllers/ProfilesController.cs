@@ -16,6 +16,7 @@ public class ProfilesController : BaseApiController
     /// <param name="orderByArticleLikes">Should they be ordered by the # of article likes? (descending)</param>
     /// <returns></returns>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<List<ProfileDto>>> GetProfiles(bool orderByArticleLikes)
     {
         var result = await Mediator.Send(new List.Query {OrderByArticleLikes = orderByArticleLikes});

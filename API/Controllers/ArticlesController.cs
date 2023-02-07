@@ -30,12 +30,13 @@ public class ArticlesController : BaseApiController
     }
     
     /// <summary>
-    /// Returns the list of articles that satisfy the search query.
+    /// Returns the list of articles that satisfy the search query. (OR operator is used with the conditions)
     /// </summary>
     /// <param name="bodySubstring">Articles should include this substring in their body. (optional)</param>
     /// <param name="titleSubstring">Articles should include this substring in their title. (optional)</param>
     /// <param name="authorNameSubstring">Articles should include this substring in their author's name (optional)</param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet("search")]
     public async Task<ActionResult<List<ArticleDto>>> SearchArticles(string bodySubstring, string titleSubstring,
         string authorNameSubstring)
