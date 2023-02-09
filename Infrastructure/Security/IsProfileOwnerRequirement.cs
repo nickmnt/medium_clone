@@ -32,8 +32,7 @@ namespace Infrastructure.Security
                 return Task.CompletedTask;
             }
             
-            var targetUsername = _httpContextAccessor.HttpContext?.Request.RouteValues
-                .SingleOrDefault(x => x.Key == "targetUsername").Value?.ToString();
+            var targetUsername = _httpContextAccessor.HttpContext!.Request.Query["targetUsername"].ToString();
 
             if(targetUsername == null)
                 return Task.CompletedTask;
