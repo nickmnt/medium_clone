@@ -1,6 +1,7 @@
 ﻿using API.DTOs;
 using Application.AppUsers;
 using Application.Articles;
+using Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,13 @@ namespace API.Controllers;
 
 public class ProfilesController : BaseApiController
 {
+    private readonly IUserAccessor _accessor;
+
+    public ProfilesController(IUserAccessor accessor)
+    {
+        _accessor = accessor;
+    }
+    
     /// <summary>
     /// Returns the list of profiles.
     /// </summary>
@@ -49,19 +57,17 @@ public class ProfilesController : BaseApiController
     }
     
     /// <summary>
-    /// Updates the target profile. (Must be logged in as that user)
+    /// Updates the profile of the current user.
     /// </summary>
-    /// <param name="targetUsername">The username being updated.</param>
     /// <param name="dto">The details of the updated profile</param>
     /// <returns></returns>
-    [Authorize(Policy = "IsProfileOwner")]
     [HttpPut("update")]
-    public async Task<ActionResult<Unit>> UpdateProfile(string targetUsername, ProfileUpdateDto dto)
+    public async Task<ActionResult<Unit>> UpdateProfile(ProfileUpdateDto dto)
     {
         var result = await Mediator.Send(new Update.Command
         {
             Bio = dto.Bio, DisplayName = dto.DisplayName,
-            TargetUsername = targetUsername
+            TargetUsername = _accessor.GetUsername()
         });
         return HandleResult(result);
     }
