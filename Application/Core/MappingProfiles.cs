@@ -33,7 +33,13 @@ namespace Application.Core
                 .ForMember(d => d.Image,
                     o => 
                         o.MapFrom(x => x.Photo.Url));
-            CreateMap<Comment, CommentDto>();
+            CreateMap<Comment, CommentDto>()
+                .ForMember(d => d.Username,
+                    o => 
+                        o.MapFrom(x => x.Author.UserName))
+                .ForMember(d => d.DisplayName,
+                    o => 
+                        o.MapFrom(x => x.Author.DisplayName));
             CreateMap<Category, CategoryDto>();
         }
     }
