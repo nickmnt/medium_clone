@@ -1,4 +1,5 @@
-﻿using Application.AppUsers;
+﻿using API.DTOs;
+using Application.AppUsers;
 using Application.Articles;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,13 +51,18 @@ public class ProfilesController : BaseApiController
     /// <summary>
     /// Updates the target profile. (Must be logged in as that user)
     /// </summary>
-    /// <param name="command">The command.</param>
+    /// <param name="targetUsername">The username being updated.</param>
+    /// <param name="dto">The details of the updated profile</param>
     /// <returns></returns>
     [Authorize(Policy = "IsProfileOwner")]
     [HttpPut("update")]
-    public async Task<ActionResult<Unit>> UpdateProfile(Update.Command command)
+    public async Task<ActionResult<Unit>> UpdateProfile(string targetUsername, ProfileUpdateDto dto)
     {
-        var result = await Mediator.Send(command);
+        var result = await Mediator.Send(new Update.Command
+        {
+            Bio = dto.Bio, DisplayName = dto.DisplayName,
+            TargetUsername = targetUsername
+        });
         return HandleResult(result);
     }
     
