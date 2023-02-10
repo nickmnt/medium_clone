@@ -2,22 +2,30 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Rings } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import agent from "../../app/api/agent";
-import { ProfileFormValues } from "../../app/models/profile";
+import { Profile, ProfileFormValues } from "../../app/models/profile";
 import { useStore } from "../../app/stores/store";
 import "./prof.css";
 
 function Prof() {
   const {
     userStore: { user },
-    contentStore: { userProfile, getProfiles, updateProfile },
+    contentStore: {
+      userProfile,
+      profiles,
+      getProfiles,
+      updateProfile,
+      adminUpdateProfile,
+    },
   } = useStore();
   const [loading, setLoading] = useState(false);
   const [getting, setGetting] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [up, setUP] = useState<Profile | null>();
   const navigate = useNavigate();
+  const { username } = useParams();
 
   const {
     register,
@@ -27,8 +35,16 @@ function Prof() {
 
   useEffect(() => {
     setGetting(true);
-    getProfiles().then(() => setGetting(false));
+    getProfiles().then(() => {
+      setGetting(false);
+    });
   }, []);
+
+  useEffect(() => {
+    setUP(
+      username ? profiles.find((p) => p.username === username) : userProfile
+    );
+  }, [profiles, userProfile]);
 
   const onSubmit: SubmitHandler<ProfileFormValues> = async (
     formValues: ProfileFormValues
@@ -38,7 +54,8 @@ function Prof() {
     setFailed(false);
     setLoading(true);
     try {
-      await updateProfile(formValues);
+      if (username) await adminUpdateProfile(username, formValues);
+      else await updateProfile(formValues);
 
       toast("پروفایل با موفقیت ویرایش شد", {
         type: "success",
@@ -52,15 +69,14 @@ function Prof() {
   };
 
   async function uploadImage(files: FileList | null) {
-    if (!files || files.length === 0) return;
-
-    const formData = new FormData();
-    formData.append("File", files[0]);
-    await agent.requests.put("/Photos/profile", formData);
-    getProfiles();
+    // if (!files || files.length === 0) return;
+    // const formData = new FormData();
+    // formData.append("File", files[0]);
+    // await agent.requests.put("/Photos/profile", formData);
+    // getProfiles();
   }
 
-  if (getting) {
+  if (getting || !up) {
     return null;
   } else {
     return (
@@ -70,8 +86,8 @@ function Prof() {
             <img
               className="avatar big-avatar"
               src={
-                userProfile?.image
-                  ? `https://localhost:7190/${userProfile.image}`
+                up?.image
+                  ? `https://localhost:7190/${up.image}`
                   : "https://api.dicebear.com/5.x/thumbs/svg"
               }
               alt="user avatar"
@@ -89,7 +105,7 @@ function Prof() {
           <input
             className={`input ${errors.displayName ? "error" : ""}`}
             type="text"
-            defaultValue={user?.displayName}
+            defaultValue={up?.displayName}
             placeholder="نام مستعار"
             {...register("displayName", { required: true })}
           />
@@ -97,7 +113,7 @@ function Prof() {
             className={`input ${errors.bio ? "error" : ""}`}
             style={{ resize: "none" }}
             rows={5}
-            defaultValue={userProfile?.bio}
+            defaultValue={up?.bio}
             placeholder="بیو"
             dir="rtl"
             draggable={false}

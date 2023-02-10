@@ -8,6 +8,7 @@ export default class UserStore {
   user: User | null = null;
   userProfile: Profile | null = null;
   isLoadingUser: boolean = false;
+  roles: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -21,8 +22,17 @@ export default class UserStore {
     try {
       const user = await agent.Account.login(creds);
       store.commonStore.setToken(user.token);
+      let claims = JSON.parse(atob(user.token.split(".")[1]));
+
 
       runInAction(() => (this.user = user));
+      runInAction(
+        () =>
+          (this.roles =
+            claims[
+              "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            ])
+      );
       await store.contentStore.getProfiles();
 
       store.contentStore.getSavedArticles();
@@ -41,8 +51,18 @@ export default class UserStore {
     try {
       runInAction(() => (this.isLoadingUser = true));
       const user = await agent.Account.current();
+
+      let claims = JSON.parse(atob(user.token.split(".")[1]));
+
       await store.contentStore.getProfiles();
       runInAction(() => (this.user = user));
+      runInAction(
+        () =>
+          (this.roles =
+            claims[
+              "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            ])
+      );
       store.contentStore.getSavedArticles();
     } catch (error) {
       store.commonStore.setToken(null);

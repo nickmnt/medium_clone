@@ -10,6 +10,8 @@ import Read from "./pages/read/read";
 import MyBlogs from "./pages/myblogs/myblogs";
 import Layout from "./layout/layout";
 import Prof from "./pages/prof/prof";
+import Blogs from "./pages/blogs/blogs";
+import Authors from "./pages/authors/authors";
 
 function App() {
   const {
@@ -26,9 +28,12 @@ function App() {
         <Route path="/new" element={<Write />} />
         <Route path="/edit/:id" element={<Write />} />
         <Route element={<Layout />}>
-          <Route path="/profile" element={<Prof />} />
+          <Route path="/profile/:username" element={<Prof />} />
+          <Route path="/profile/" element={<Prof />} />
           <Route path="/read/:id" element={<Read />} />
           <Route path="/myblogs" element={<MyBlogs />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/authors" element={<Authors />} />
           <Route path="/" element={<Feed />} />
         </Route>
       </Routes>

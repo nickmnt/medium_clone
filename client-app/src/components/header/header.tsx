@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import Login from "../../components/login/login";
 import Register from "../../components/register/register";
+import { toast } from "react-toastify";
 
 const modalStyles: Modal.Styles = {
   content: {
@@ -35,7 +36,7 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const {
-    userStore: { user, isLoggedIn, isLoadingUser },
+    userStore: { user, isLoggedIn, isLoadingUser, userProfile },
   } = useStore();
 
   function renderUserStatus() {
@@ -58,7 +59,14 @@ function Header() {
           <IconButton
             label="بنویس"
             icon={<CiEdit />}
-            onClick={() => navigate("/new")}
+            onClick={() => {
+              if (userProfile?.isActive) navigate("/new");
+              else {
+                toast("اکانت شما غیرفعال است", {
+                  type: "warning"
+                })
+              }
+            }}
           />
           <Popover
             isOpen={isPopoverOpen}

@@ -1,0 +1,10 @@
+.rounded-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 1000px;
+  margin: initial;
+  border: 1px solid var(--surface-color);
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}

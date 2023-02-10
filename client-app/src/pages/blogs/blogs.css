@@ -1,0 +1,17 @@
+.blogs-top {
+  width: 100%;
+  direction: rtl;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.status-box .sort-select {
+  margin-right: 1rem;
+}
+
+.status-box2 .sort-select {
+  margin: 0 1rem;
+}

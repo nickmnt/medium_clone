@@ -90,4 +90,8 @@ export default class ContentStore {
   updateProfile = async (formValues: ProfileFormValues) => {
     await agent.requests.put("/Profiles/update", formValues);
   };
+
+  adminUpdateProfile = async (username: string, formValues: ProfileFormValues) => {
+    await agent.requests.put("/Profiles/admin-update", {targetUsername: username, ...formValues});
+  };
 }

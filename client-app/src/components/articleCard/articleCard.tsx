@@ -13,6 +13,12 @@ interface Props {
 function ArticleCard({ article }: Props) {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (article.id === 3) {
+      console.log(article.body?.slice(15773));
+    }
+  }, []);
+
   return (
     <article className="article-card">
       <div className="article-card-header">
