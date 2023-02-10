@@ -161,9 +161,11 @@ function Feed() {
           </div>
         </div>
 
-        {articles.map((article) => {
-          return <ArticleCard key={article.id} article={article} />;
-        })}
+        {articles
+          .filter((a) => a.isApproved)
+          .map((article) => {
+            return <ArticleCard key={article.id} article={article} />;
+          })}
       </section>
     </section>
   );
