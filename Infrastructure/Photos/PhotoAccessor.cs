@@ -31,7 +31,7 @@ namespace Infrastructure.Photos
                     return new PhotoUploadResult
                     {
                         Url = dbPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
-                        PublicId = fileName
+                        PublicId = Guid.NewGuid().ToString()
                     };
                 }
 

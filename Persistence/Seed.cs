@@ -12,12 +12,17 @@ namespace Persistence
     public static async Task SeedData(DataContext context,
         UserManager<AppUser> userManager)
     {
-      List<AppUser> testers = new List<AppUser>();
-
       if (userManager.Users.Any())
       {
         return;
       }
+
+      List<ProfilePhoto> profilePhotos = new List<ProfilePhoto>()
+      {
+        new ProfilePhoto { Id = Guid.NewGuid().ToString(), Url = "fba7773e-32b8-4622-973b-3e7fd641846b.jpeg" },
+        new ProfilePhoto { Id = Guid.NewGuid().ToString(), Url = "222bcb3f-5203-4cb4-a227-4c6e526cd8b9.jpeg" },
+        new ProfilePhoto { Id = Guid.NewGuid().ToString(), Url = "222bcb3f-5203-4cb4-a227-4c6e526cd8b9.jpeg" }
+      };
 
       var users = new List<AppUser>
             {
@@ -27,7 +32,7 @@ namespace Persistence
                     UserName = "nima",
                     Email = "nima@test.com",
                     Bio = "توسعه دهنده مطرح وب در سطح کشور",
-                    Photo = new ProfilePhoto {Url = "fba7773e-32b8-4622-973b-3e7fd641846b.jpeg"}
+                    Photo = profilePhotos[0]
                 },
                 new AppUser
                 {
@@ -35,7 +40,7 @@ namespace Persistence
                     UserName = "banafshe",
                     Email = "banafshe@test.com",
                     Bio = "مدیر ارشد منابع انسانی نقطه سرخط",
-                    Photo = new ProfilePhoto {Url = "222bcb3f-5203-4cb4-a227-4c6e526cd8b9.jpeg"}
+                    Photo = profilePhotos[1]
                 },
                 new AppUser
                 {
@@ -43,7 +48,7 @@ namespace Persistence
                     UserName = "joe",
                     Email = "joe@test.com",
                     Bio = "پادکستر",
-                    Photo = new ProfilePhoto {Url = "222bcb3f-5203-4cb4-a227-4c6e526cd8b9.jpeg"}
+                    Photo = profilePhotos[2]
                 },
             };
 
@@ -82,7 +87,7 @@ namespace Persistence
         Category = categories[2],
         Title = "متاورس چیست؟",
         IsApproved = true,
-        Photo = new ArticlePhoto { Url = "158ea524-8b10-4fce-a861-986e4ea6d702.png" }
+        Photo = new ArticlePhoto { Id = Guid.NewGuid().ToString(), Url = "158ea524-8b10-4fce-a861-986e4ea6d702.png" }
       };
 
       var comment = new Comment
@@ -120,7 +125,7 @@ namespace Persistence
         Category = categories[1],
         Title = "بازتعریف مدیریت منابع انسانی",
         IsApproved = true,
-        Photo = new ArticlePhoto { Url = "bb92766a-332e-4298-bc8d-0430019b91a1.png" }
+        Photo = new ArticlePhoto { Id = Guid.NewGuid().ToString(), Url = "bb92766a-332e-4298-bc8d-0430019b91a1.png" }
       };
 
       categories[1].Articles.Add(article);
@@ -132,7 +137,7 @@ namespace Persistence
         Category = categories[5],
         Title = "آنچه باید درباره chatgpt بدانید",
         IsApproved = true,
-        Photo = new ArticlePhoto { Url = "845bf492-b407-40ff-a7fb-65c80d757539.webp" }
+        Photo = new ArticlePhoto { Id = Guid.NewGuid().ToString(), Url = "845bf492-b407-40ff-a7fb-65c80d757539.webp" }
       };
 
 
