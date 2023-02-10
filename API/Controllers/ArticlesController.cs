@@ -117,4 +117,34 @@ public class ArticlesController : BaseApiController
         var result = await Mediator.Send(command);
         return HandleResult(result);
     }
+    
+    /// <summary>
+    /// Delete the article. (Must be owner)
+    /// </summary>
+    /// <param name="articleId">Id of the article being deleted.</param>
+    /// <returns></returns>
+    [Authorize(Policy = "IsArticleOwner")]
+    [HttpDelete]
+    public async Task<ActionResult<Unit>> Update(int articleId)
+    {
+        var result = await Mediator.Send(new Delete.Command {
+            ArticleId = articleId
+        });
+        return HandleResult(result);
+    }
+    
+    /// <summary>
+    /// Delete the article. (Must be admin)
+    /// </summary>
+    /// <param name="articleId">Id of the article being deleted.</param>
+    /// <returns></returns>
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("admin-delete")]
+    public async Task<ActionResult<Unit>> AdminDelete(int articleId)
+    {
+        var result = await Mediator.Send(new Delete.Command {
+            ArticleId = articleId
+        });
+        return HandleResult(result);
+    }
 }
