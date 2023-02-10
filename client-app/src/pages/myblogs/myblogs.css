@@ -1,0 +1,72 @@
+.mtable {
+  direction: rtl;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mtable tr {
+  border-bottom: 1px solid var(--surface-color);
+}
+
+.mtable td {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.tr-img {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tr-img img {
+  width: 120px;
+  height: 80px;
+  border-radius: 1rem;
+  margin: 0;
+  object-fit: cover;
+}
+
+.tr-img span {
+  font-size: 24px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tr-img span:hover {
+  color: var(--primary-color);
+}
+
+.pill-green {
+  background-color: var(--success-light-color);
+  background-color: var(--success-color);
+}
+
+.pill-red {
+  background-color: var(--danger-light-color);
+  color: var(--danger-color);
+}
+
+.table-actionbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.table-action {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.action-edit:hover {
+  color: var(--secondary-color);
+}
+
+.action-delete:hover {
+  color: var(--danger-color);
+}

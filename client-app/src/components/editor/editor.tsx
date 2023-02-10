@@ -146,7 +146,7 @@ function Editor({
           <IconButton
             label="لغو"
             icon={<RxCross1 />}
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
           />
           <IconButton
             label="انتشار"

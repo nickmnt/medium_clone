@@ -1,6 +1,7 @@
 .read-container {
   direction: rtl;
   margin: 2rem auto;
+  max-width: 990px;
 }
 
 .article-read-top {
@@ -14,10 +15,15 @@
 
 .read-content {
   width: 100%;
-  padding: 1rem;
   border-left: 1px solid var(--surface-color);
   border-right: 1px solid var(--surface-color);
   position: relative;
+  line-height: 2rem;
+}
+
+.article-editor {
+  
+  padding: 1rem;
 }
 
 .actionbar {
@@ -41,4 +47,35 @@
   gap: 0.5rem;
   justify-content: flex-start;
   margin: 0.5rem 0;
+}
+
+.comment-section {
+  width: 100%;
+}
+
+.write-comment {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--surface-color);
+  padding: 0.5rem;
+}
+
+.write-comment textarea {
+  width: 100%;
+  resize: none;
+  padding: 0.5rem;
+  border: none;
+}
+
+.send {
+  cursor: pointer;
+  transform: rotateY(180deg);
+  transition: all 0.3s ease;
+}
+
+.send:hover {
+  fill: var(--primary-color);
 }

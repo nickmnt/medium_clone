@@ -47,6 +47,10 @@
   align-items: baseline;
 }
 
+.author-info div p {
+  margin: 0.5rem 0;
+}
+
 .author-bio {
   margin: 0;
   font-size: 16px;

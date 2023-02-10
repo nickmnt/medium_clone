@@ -6,3 +6,8 @@ export interface Profile {
   isActive: boolean;
   likedCount: number;
 }
+
+export interface ProfileFormValues {
+  bio: string;
+  displayName: string;
+}

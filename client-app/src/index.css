@@ -40,9 +40,11 @@ p {
   --background-color: #fafafa;
   --surface-color: #d4d4d8;
   --text-color: #18181b;
-  --secondary-text-color: #27272a;
+  --secondary-text-color: #3f3f46;
   --danger-color: #be123c;
   --danger-light-color: #fecdd3;
+  --success-color: #047857;
+  --success-light-color: #a7f3d0;
   --toastify-font-family: "Vazirmatn";
 }
 
@@ -84,4 +86,8 @@ a:visited {
     right: auto;
     width: 100%;
   }
+}
+
+.ReactModal__Overlay {
+  z-index: 99;
 }

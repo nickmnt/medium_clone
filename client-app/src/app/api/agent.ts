@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse, CancelToken } from "axios";
 import { PaginatedResult } from "../models/pagination";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
@@ -56,6 +56,8 @@ axios.interceptors.response.use(
 
 const requests = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+  getWithCancel: <T>(url: string, token?: CancelToken) =>
+    axios.get<T>(url, { cancelToken: token }).then(responseBody),
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),

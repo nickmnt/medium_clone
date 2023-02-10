@@ -50,6 +50,12 @@ function Write() {
           categoryId: cat?.value,
         });
 
+        if (file.length > 0) {
+          const formData = new FormData();
+          formData.append("File", file[0]);
+          await agent.requests.put(`/Photos/article?articleId=${id}`, formData);
+        }
+
         toast("مقاله با موفقیت منتشر شد", {
           type: "success",
         });

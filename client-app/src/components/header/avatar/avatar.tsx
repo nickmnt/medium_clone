@@ -5,12 +5,17 @@ import "./avatar.css";
 
 function Avatar() {
   const {
-    userStore: { user },
+    contentStore: { userProfile },
   } = useStore();
+  
   return (
     <img
       className="avatar"
-      src={user?.image || "https://i.pravatar.cc/50"}
+      src={
+        userProfile?.image
+          ? `https://localhost:7190/${userProfile.image}`
+          : "https://api.dicebear.com/5.x/thumbs/svg"
+      }
       alt="user avatar"
     />
   );

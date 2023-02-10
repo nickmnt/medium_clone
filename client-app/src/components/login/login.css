@@ -28,7 +28,8 @@ img {
   border: 1px solid var(--surface-color);
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
 }
 

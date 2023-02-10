@@ -1,10 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { Profile } from "../models/profile";
 import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 
 export default class UserStore {
   user: User | null = null;
+  userProfile: Profile | null = null;
   isLoadingUser: boolean = false;
 
   constructor() {
@@ -21,6 +23,8 @@ export default class UserStore {
       store.commonStore.setToken(user.token);
 
       runInAction(() => (this.user = user));
+      await store.contentStore.getProfiles();
+
       store.contentStore.getSavedArticles();
     } catch (error) {
       throw error;
@@ -37,12 +41,12 @@ export default class UserStore {
     try {
       runInAction(() => (this.isLoadingUser = true));
       const user = await agent.Account.current();
+      await store.contentStore.getProfiles();
       runInAction(() => (this.user = user));
       store.contentStore.getSavedArticles();
     } catch (error) {
       store.commonStore.setToken(null);
       window.localStorage.removeItem("jwt");
-      console.log(error);
     } finally {
       runInAction(() => (this.isLoadingUser = false));
     }

@@ -23,7 +23,11 @@ function SelectedAuthors() {
           >
             <img
               className="avatar"
-              src={author.image || "https://i.pravatar.cc/50"}
+              src={
+                author.image
+                  ? `https://localhost:7190/${author.image}`
+                  : "https://api.dicebear.com/5.x/thumbs/svg"
+              }
               alt="user avatar"
             />
             <div className="author-info">

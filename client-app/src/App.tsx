@@ -7,7 +7,9 @@ import { useStore } from "./app/stores/store";
 import Feed from "./pages/feed/feed.page";
 import Write from "./pages/write/write.page";
 import Read from "./pages/read/read";
-import Search from "./pages/search/search";
+import MyBlogs from "./pages/myblogs/myblogs";
+import Layout from "./layout/layout";
+import Prof from "./pages/prof/prof";
 
 function App() {
   const {
@@ -23,9 +25,12 @@ function App() {
       <Routes>
         <Route path="/new" element={<Write />} />
         <Route path="/edit/:id" element={<Write />} />
-        <Route path="/read/:id" element={<Read />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/" element={<Feed />} />
+        <Route element={<Layout />}>
+          <Route path="/profile" element={<Prof />} />
+          <Route path="/read/:id" element={<Read />} />
+          <Route path="/myblogs" element={<MyBlogs />} />
+          <Route path="/" element={<Feed />} />
+        </Route>
       </Routes>
       <ToastContainer position="top-center" closeOnClick rtl />
     </>

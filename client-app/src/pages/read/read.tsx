@@ -1,11 +1,15 @@
 import { convertFromRaw, Editor, EditorState } from "draft-js";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
+import { CiPaperplane } from "react-icons/ci";
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
+import { TailSpin } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
+import agent from "../../app/api/agent";
 import { Article } from "../../app/models/article";
+import { Comment } from "../../app/models/comment";
 import { useStore } from "../../app/stores/store";
-import Header from "../../components/header/header";
+import { format } from "../../urils/jdate";
 import "./read.css";
 
 function Read() {
@@ -15,11 +19,21 @@ function Read() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [article, setArticle] = useState<Article>();
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [comment, setComment] = useState<string>();
+  const [sending, setSending] = useState(false);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const {
     userStore: { user },
-    contentStore: { likeArticle, articles, saveArticle, savedArticles },
+    contentStore: {
+      likeArticle,
+      articles,
+      saveArticle,
+      savedArticles,
+      profiles,
+      userProfile,
+    },
   } = useStore();
 
   useEffect(() => {
@@ -39,6 +53,12 @@ function Read() {
       );
 
       setBookmarked(savedArticles.find((a) => a.id === article.id) != null);
+
+      agent.requests
+        .get<Comment[]>(`/Comments?articleId=${article.id}`)
+        .then((cm) => {
+          setComments(cm);
+        });
       return;
     }
 
@@ -55,43 +75,57 @@ function Read() {
     await saveArticle(id || "");
   }
 
-  return (
-    <>
-      <Header />
-      <div className="container read-container">
-        <div className="article-read-top">
-          <h1>{article?.title}</h1>
+  async function send() {
+    setSending(true);
+    await agent.requests.post("/Comments", { articleId: id, body: comment });
 
-          <div
-            key={article?.author.username}
-            className="author-box"
-            style={{ marginBottom: "1rem" }}
-          >
-            <img
-              className="avatar"
-              src={article?.author.image || "https://i.pravatar.cc/50"}
-              alt="user avatar"
-            />
-            <div className="author-info">
-              <div>
-                <p className="author-name">{article?.author.displayName}</p>
-              </div>
-              <p className="author-bio">{article?.author.bio}</p>
+    agent.requests.get<Comment[]>(`/Comments?articleId=${id}`).then((cm) => {
+      setSending(false);
+      setComments(cm);
+      setComment("");
+    });
+  }
+
+  return (
+    <div className="container read-container">
+      <div className="article-read-top">
+        <h1>{article?.title}</h1>
+
+        <div
+          key={article?.author.username}
+          className="author-box"
+          style={{ marginBottom: "1rem" }}
+        >
+          <img
+            className="avatar"
+            src={
+              article?.author.image
+                ? `https://localhost:7190/${article?.author.image}`
+                : "https://api.dicebear.com/5.x/thumbs/svg"
+            }
+            alt="user avatar"
+          />
+          <div className="author-info">
+            <div>
+              <p className="author-name">{article?.author.displayName}</p>
+            </div>
+            <p className="author-bio">{article?.author.bio}</p>
+          </div>
+        </div>
+      </div>
+      <div className="read-content">
+        <div className="actionbar">
+          <div className="read-actions">
+            <div onClick={like} className="read-action">
+              {liked ? <FaHeart /> : <FaRegHeart />}
+              <span>{article?.likes.length}</span>
+            </div>
+            <div onClick={bookmark} className="read-action">
+              {bookmarked ? <FaBookmark /> : <FaRegBookmark />}
             </div>
           </div>
         </div>
-        <div className="read-content">
-          <div className="actionbar">
-            <div className="read-actions">
-              <div onClick={like} className="read-action">
-                {liked ? <FaHeart /> : <FaRegHeart />}
-                <span>{article?.likes.length}</span>
-              </div>
-              <div onClick={bookmark} className="read-action">
-                {bookmarked ? <FaBookmark /> : <FaRegBookmark />}
-              </div>
-            </div>
-          </div>
+        <div className="article-editor">
           <Editor
             editorState={editorState}
             readOnly={true}
@@ -99,7 +133,74 @@ function Read() {
           />
         </div>
       </div>
-    </>
+
+      <h3>نظرات</h3>
+
+      <div className="comment-section">
+        {comments.map((c) => {
+          const commenter = profiles.find((p) => p.username === c.username);
+          if (commenter) {
+            return (
+              <div key={c.id} className="author-box" style={{marginBottom: "2rem", alignItems: "flex-start"}}>
+                <img
+                  className="avatar"
+                  src={
+                    commenter?.image
+                      ? `https://localhost:7190/${commenter.image}`
+                      : "https://api.dicebear.com/5.x/thumbs/svg"
+                  }
+                  alt="user avatar"
+                />
+                <div className="author-info">
+                  <div>
+                    <p className="author-name">{commenter?.displayName}</p>
+                    <span className="bullet"></span>
+                    <p className="article-date">{format(c.createdAt)}</p>
+                  </div>
+                  <p className="author-bio">{c.body}</p>
+                </div>
+              </div>
+            );
+          } else {
+            console.log(c);
+          }
+        })}
+        {user ? (
+          <div className="write-comment">
+            <img
+              className="avatar"
+              src={
+                userProfile?.image
+                  ? `https://localhost:7190/${userProfile.image}`
+                  : "https://api.dicebear.com/5.x/thumbs/svg"
+              }
+              alt="user avatar"
+            />
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              name="comment"
+              id="comment"
+              rows={1}
+              placeholder="نظرتو بنویس..."
+            ></textarea>
+            {sending ? (
+              <TailSpin
+                height="20"
+                width="20"
+                color="var(--primary-color)"
+                radius="6"
+                wrapperStyle={{}}
+                visible={true}
+                ariaLabel="rings-loading"
+              />
+            ) : (
+              <CiPaperplane onClick={send} fontSize={36} className="send" />
+            )}
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }
 

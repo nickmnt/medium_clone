@@ -65,7 +65,7 @@ function Header() {
             onClickOutside={() => setIsPopoverOpen(false)}
             reposition={false}
             positions={["bottom"]} // preferred positions by priority
-            content={<AvatarMenu />}
+            content={<AvatarMenu close={() => setIsPopoverOpen(false)} />}
           >
             <div onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
               <Avatar />
@@ -98,7 +98,7 @@ function Header() {
       <header>
         <div className="box"></div>
         <div className="box">
-          <h2 className="title">
+          <h2 onClick={() => navigate("/")} className="title">
             <span>.</span>نقطه سرخط
           </h2>
         </div>
