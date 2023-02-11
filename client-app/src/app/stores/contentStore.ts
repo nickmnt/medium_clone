@@ -30,11 +30,15 @@ export default class ContentStore {
     orderByLiked = false,
     token?: CancelToken
   ) => {
-    const articles = await agent.requests.getWithCancel<Article[]>(
-      `/Articles?category=${category}&orderByDate=${orderByDate}&orderByLikes=${orderByLiked}`,
-      token
-    );
-    runInAction(() => (this.articles = articles));
+    try {
+      const articles = await agent.requests.getWithCancel<Article[]>(
+        `/Articles?category=${category}&orderByDate=${orderByDate}&orderByLikes=${orderByLiked}`,
+        token
+      );
+      runInAction(() => (this.articles = articles));
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   getSavedArticles = async () => {
@@ -91,7 +95,13 @@ export default class ContentStore {
     await agent.requests.put("/Profiles/update", formValues);
   };
 
-  adminUpdateProfile = async (username: string, formValues: ProfileFormValues) => {
-    await agent.requests.put("/Profiles/admin-update", {targetUsername: username, ...formValues});
+  adminUpdateProfile = async (
+    username: string,
+    formValues: ProfileFormValues
+  ) => {
+    await agent.requests.put("/Profiles/admin-update", {
+      targetUsername: username,
+      ...formValues,
+    });
   };
 }

@@ -25,7 +25,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   async (response) => {
-    if (process.env.NODE_ENV === "development") await sleep(1000);
+    if (process.env.NODE_ENV === "development") await sleep(200);
     const pagination = response.headers["pagination"];
     if (pagination) {
       response.data = new PaginatedResult(
@@ -37,19 +37,6 @@ axios.interceptors.response.use(
     return response;
   },
   (error: AxiosError<string>) => {
-    // TO BE COMPLETED
-    const { data, status, config } = error.response!;
-    switch (status) {
-      case 400:
-        break;
-      case 401:
-        break;
-      case 404:
-        break;
-      case 500:
-        store.commonStore.setServerError(data);
-        break;
-    }
     return Promise.reject(error);
   }
 );
