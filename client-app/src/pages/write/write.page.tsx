@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import agent from "../../app/api/agent";
+import { Article } from "../../app/models/article";
 import { useStore } from "../../app/stores/store";
 import Editor from "../../components/editor/editor";
 
@@ -46,7 +47,7 @@ function Write() {
       } else {
         console.log("sjsjk");
         
-        await agent.requests.post(`/Articles`, {
+        const { id: newId } = await agent.requests.post<Article>(`/Articles`, {
           title: title,
           body: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
           categoryId: cat?.value,
@@ -55,7 +56,7 @@ function Write() {
         if (file.length > 0) {
           const formData = new FormData();
           formData.append("File", file[0]);
-          await agent.requests.put(`/Photos/article?articleId=${id}`, formData);
+          await agent.requests.put(`/Photos/article?articleId=${newId}`, formData);
         }
 
         toast("مقاله با موفقیت منتشر شد", {
