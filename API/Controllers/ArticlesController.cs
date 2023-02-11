@@ -56,7 +56,7 @@ public class ArticlesController : BaseApiController
     /// <param name="command">The command.</param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ActionResult<Unit>> Create(Create.Command command)
+    public async Task<ActionResult<ArticleDto>> Create(Create.Command command)
     {
         var result = await Mediator.Send(command);
         return HandleResult(result);

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Application.Core;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -14,7 +15,7 @@ public class Create
     /// <summary>
     /// The article will be created using the Command and with the requesting user as the article author.
     /// </summary>
-    public class Command : IRequest<Result<Unit>>
+    public class Command : IRequest<Result<ArticleDto>>
     {
         public string Title { get; set; }
         public string Body { get; set; }
@@ -31,18 +32,20 @@ public class Create
         }
     }
 
-    public class Handler : IRequestHandler<Command, Result<Unit>>
+    public class Handler : IRequestHandler<Command, Result<ArticleDto>>
     {
         private readonly DataContext _context;
         private readonly IUserAccessor _userAccessor;
+        private readonly IMapper _mapper;
 
-        public Handler(DataContext context, IUserAccessor userAccessor)
+        public Handler(DataContext context, IUserAccessor userAccessor, IMapper mapper)
         {
             _context = context;
             _userAccessor = userAccessor;
+            _mapper = mapper;
         }
 
-        public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<ArticleDto>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => 
                 x.UserName == _userAccessor.GetUsername());
@@ -62,9 +65,9 @@ public class Create
             var result = await _context.SaveChangesAsync() > 0;
 
             if (!result)
-                return Result<Unit>.Failure("Failed to create article.");
+                return Result<ArticleDto>.Failure("Failed to create article.");
             else
-                return Result<Unit>.Success(Unit.Value);
+                return Result<ArticleDto>.Success(_mapper.Map<ArticleDto>(article));
         }
     }
 }
