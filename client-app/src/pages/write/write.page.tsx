@@ -44,7 +44,9 @@ function Write() {
 
         navigate("/");
       } else {
-        await agent.requests.post(`/Articles?articleId=${id}`, {
+        console.log("sjsjk");
+        
+        await agent.requests.post(`/Articles`, {
           title: title,
           body: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
           categoryId: cat?.value,

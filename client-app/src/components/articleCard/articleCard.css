@@ -60,6 +60,7 @@
 .article-card-body {
   margin-bottom: 2rem;
   text-align: justify;
+  line-height: 1.8wrem;
 }
 
 .article-content {
@@ -77,4 +78,26 @@
   object-fit: cover;
   border-radius: 15px;
   margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .article-content {
+    flex-direction: column;
+  }
+
+  .article-content img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .author-info div {
+    gap: 0.5rem;
+  }
+
+  .article-title {
+    font-size: 24px;
+  }
 }

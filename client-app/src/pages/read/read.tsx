@@ -89,6 +89,8 @@ function Read() {
   return (
     <div className="container read-container">
       <div className="article-read-top">
+        <img className="read-img" src={`https://localhost:7190/${article?.image}`} alt="image" />
+
         <h1>{article?.title}</h1>
 
         <div
@@ -141,7 +143,11 @@ function Read() {
           const commenter = profiles.find((p) => p.username === c.username);
           if (commenter) {
             return (
-              <div key={c.id} className="author-box" style={{marginBottom: "2rem", alignItems: "flex-start"}}>
+              <div
+                key={c.id}
+                className="author-box"
+                style={{ marginBottom: "2rem", alignItems: "flex-start" }}
+              >
                 <img
                   className="avatar"
                   src={

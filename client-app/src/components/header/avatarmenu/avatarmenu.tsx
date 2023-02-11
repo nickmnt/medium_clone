@@ -43,7 +43,7 @@ function AvatarMenu({ close }: Props) {
             <span>مدیریت مقالات</span>
             <CiViewList fontSize={24} />
           </div>
-          <div className="menu-item" onClick={() => go("/categories")}>
+          <div className="menu-item" onClick={() => go("/cats")}>
             <span>دسته بندی ها</span>
             <CiHashtag fontSize={24} />
           </div>{" "}

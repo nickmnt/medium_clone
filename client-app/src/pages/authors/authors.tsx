@@ -37,6 +37,7 @@ function Authors() {
     <div className="container">
       <h1 style={{ width: "100%", textAlign: "center" }}>نویسندگان</h1>
 
+      <div className="scroller">
       <table className="mtable">
         <tbody>
           {profiles.map((prof) => {
@@ -131,6 +132,7 @@ function Authors() {
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

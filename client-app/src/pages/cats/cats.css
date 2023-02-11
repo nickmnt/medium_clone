@@ -1,0 +1,48 @@
+.delete-modal {
+  direction: rtl;
+  text-align: center;
+}
+
+.cat-mtable {
+  min-width: 500px;
+}
+
+.delete-modal span {
+  font-weight: bold;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 2rem;
+}
+
+.modal-action {
+  width: 100%;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.modal-action:hover {
+  border: 1px solid var(--surface-color);
+}
+
+.modal-action-red {
+  background-color: var(--danger-light-color);
+  color: var(--danger-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-action-red:hover {
+  border: 1px solid var(--danger-color);
+}

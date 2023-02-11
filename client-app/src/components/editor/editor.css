@@ -383,3 +383,44 @@
 .select__menu {
   z-index: 99 !important;
 }
+
+@media (max-width: 1400px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .info {
+    justify-content: space-between;
+  }
+  
+  .basic-single {
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .info {
+    flex-direction: column;
+  }
+
+  .basic-single {
+    width: 100%;
+  }
+
+  .title-input {
+    width: calc(100% - 1.5rem);
+  }
+
+  .upload-container {
+    width: auto !important;
+    text-align: center;
+  }
+}

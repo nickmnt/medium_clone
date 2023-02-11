@@ -1,7 +1,7 @@
 .read-container {
   direction: rtl;
   margin: 2rem auto;
-  max-width: 990px;
+  width: min(990px, 90%);
 }
 
 .article-read-top {
@@ -78,4 +78,34 @@
 
 .send:hover {
   fill: var(--primary-color);
+}
+
+.read-img {
+  width: min(90%, 500px);
+  border-radius: 15px;
+}
+
+@media (max-width: 992px) {
+  .actionbar {
+    left: -25px;
+  }
+
+  .read-action {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .actionbar {
+    left: 0;
+    top: -15px;
+  }
+
+  .read-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
 }

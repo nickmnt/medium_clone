@@ -24,7 +24,6 @@ export default class UserStore {
       store.commonStore.setToken(user.token);
       let claims = JSON.parse(atob(user.token.split(".")[1]));
 
-
       runInAction(() => (this.user = user));
       runInAction(
         () =>
@@ -34,6 +33,7 @@ export default class UserStore {
             ])
       );
       await store.contentStore.getProfiles();
+      console.log(store.contentStore.userProfile);
 
       store.contentStore.getSavedArticles();
     } catch (error) {
@@ -54,7 +54,6 @@ export default class UserStore {
 
       let claims = JSON.parse(atob(user.token.split(".")[1]));
 
-      await store.contentStore.getProfiles();
       runInAction(() => (this.user = user));
       runInAction(
         () =>
@@ -63,6 +62,7 @@ export default class UserStore {
               "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
             ])
       );
+      await store.contentStore.getProfiles();
       store.contentStore.getSavedArticles();
     } catch (error) {
       store.commonStore.setToken(null);

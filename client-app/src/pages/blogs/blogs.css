@@ -1,3 +1,7 @@
+.blogs-mtable {
+  min-width: 1300px;
+}
+
 .blogs-top {
   width: 100%;
   direction: rtl;
@@ -14,4 +18,22 @@
 
 .status-box2 .sort-select {
   margin: 0 1rem;
+}
+
+@media (max-width: 576px) {
+  .blogs-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .status-box .sort-select {
+    margin-right: 0;
+  }
+  
+  .status-box2 .sort-select {
+    margin: 0;
+  }
 }

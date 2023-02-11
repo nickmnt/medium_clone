@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 
 const modalStyles: Modal.Styles = {
   content: {
-    width: "400px",
+    width: "min(90%, 400px)",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -36,7 +36,8 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const {
-    userStore: { user, isLoggedIn, isLoadingUser, userProfile },
+    userStore: { user, isLoggedIn, isLoadingUser },
+    contentStore: { userProfile },
   } = useStore();
 
   function renderUserStatus() {
@@ -60,18 +61,19 @@ function Header() {
             label="بنویس"
             icon={<CiEdit />}
             onClick={() => {
+              console.log(userProfile);
               if (userProfile?.isActive) navigate("/new");
               else {
                 toast("اکانت شما غیرفعال است", {
-                  type: "warning"
-                })
+                  type: "warning",
+                });
               }
             }}
           />
           <Popover
             isOpen={isPopoverOpen}
             onClickOutside={() => setIsPopoverOpen(false)}
-            reposition={false}
+            reposition={true}
             positions={["bottom"]} // preferred positions by priority
             content={<AvatarMenu close={() => setIsPopoverOpen(false)} />}
           >
@@ -104,7 +106,7 @@ function Header() {
   return (
     <>
       <header>
-        <div className="box"></div>
+        <div className="box dummy-box"></div>
         <div className="box">
           <h2 onClick={() => navigate("/")} className="title">
             <span>.</span>نقطه سرخط

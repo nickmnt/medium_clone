@@ -110,7 +110,7 @@ function Feed() {
               <label htmlFor="inAuthor">در نام نویسنده</label>
             </div>
           </div>
-          <span style={{ margin: "0 2rem 0 1rem" }}>موضوعات داغ:</span>
+          <span className="hot-topics">موضوعات داغ:</span>
 
           {categories.slice(0, 3).map((c) => {
             return (
@@ -128,6 +128,40 @@ function Feed() {
               </span>
             );
           })}
+
+          <Select
+            className="basic-single feed-select"
+            classNamePrefix="select"
+            isClearable={true}
+            value={
+              selectedCategory
+                ? {
+                    label: selectedCategory.name,
+                    value: selectedCategory.id,
+                  }
+                : null
+            }
+            isRtl={true}
+            isSearchable={true}
+            name="category"
+            placeholder="دسته بندی..."
+            options={categories.map((c) => {
+              return { value: c.id, label: c.name };
+            })}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary: "var(--primary-color)",
+              },
+            })}
+            onChange={(c) =>
+              setSelectedCategory(
+                categories.find((cat) => cat.id === c?.value) || null
+              )
+            }
+          />
         </div>
 
         <div className="articles-main">

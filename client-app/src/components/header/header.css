@@ -32,3 +32,27 @@ header {
 .title span {
   color: var(--primary-color);
 }
+
+@media (max-width: 1200px) {
+  header {
+    padding: 0 2rem;
+  }
+
+  .dummy-box {
+    display: none;
+  }
+  
+  .box:nth-child(2) {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  header {
+    padding: 0 0.5rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+}

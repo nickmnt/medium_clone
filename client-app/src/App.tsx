@@ -12,6 +12,7 @@ import Layout from "./layout/layout";
 import Prof from "./pages/prof/prof";
 import Blogs from "./pages/blogs/blogs";
 import Authors from "./pages/authors/authors";
+import Cats from "./pages/cats/cats";
 
 function App() {
   const {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/read/:id" element={<Read />} />
           <Route path="/myblogs" element={<MyBlogs />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/cats" element={<Cats />} />
           <Route path="/authors" element={<Authors />} />
           <Route path="/" element={<Feed />} />
         </Route>

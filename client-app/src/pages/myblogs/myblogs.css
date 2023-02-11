@@ -1,7 +1,15 @@
 .mtable {
   direction: rtl;
   width: 100%;
+  min-width: 1000px;
+  overflow-x: auto;
   border-collapse: collapse;
+}
+
+.scroller {
+  direction: rtl;
+  width: 100%;
+  overflow: auto;
 }
 
 .mtable tr {

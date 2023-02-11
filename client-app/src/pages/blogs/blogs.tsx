@@ -154,7 +154,8 @@ function Blogs() {
         />
       </div>
 
-      <table className="mtable">
+      <div className="scroller">
+      <table className="mtable blogs-mtable">
         <tbody>
           {articles.map((article) => {
             return (
@@ -240,6 +241,7 @@ function Blogs() {
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
