@@ -13,6 +13,8 @@ import Prof from "./pages/prof/prof";
 import Blogs from "./pages/blogs/blogs";
 import Authors from "./pages/authors/authors";
 import Cats from "./pages/cats/cats";
+import ProtectedRoute from "./components/router/ProtectedRoute";
+import AdminRoute from "./components/router/AdminRoute";
 
 function App() {
   const {
@@ -26,16 +28,72 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/new" element={<Write />} />
-        <Route path="/edit/:id" element={<Write />} />
+        <Route
+          path="/new"
+          element={
+            <ProtectedRoute>
+              <Write />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <ProtectedRoute>
+              <Write />
+            </ProtectedRoute>
+          }
+        />
         <Route element={<Layout />}>
-          <Route path="/profile/:username" element={<Prof />} />
-          <Route path="/profile/" element={<Prof />} />
+          <Route
+            path="/profile/:username"
+            element={
+              <AdminRoute>
+                <Prof />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/profile/"
+            element={
+              <ProtectedRoute>
+                <Prof />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/read/:id" element={<Read />} />
-          <Route path="/myblogs" element={<MyBlogs />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/cats" element={<Cats />} />
-          <Route path="/authors" element={<Authors />} />
+          <Route
+            path="/myblogs"
+            element={
+              <ProtectedRoute>
+                <MyBlogs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/blogs"
+            element={
+              <AdminRoute>
+                <Blogs />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/cats"
+            element={
+              <AdminRoute>
+                <Cats />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/authors"
+            element={
+              <AdminRoute>
+                <Authors />
+              </AdminRoute>
+            }
+          />
           <Route path="/" element={<Feed />} />
         </Route>
       </Routes>
