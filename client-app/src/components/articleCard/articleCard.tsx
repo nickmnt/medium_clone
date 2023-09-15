@@ -27,7 +27,7 @@ function ArticleCard({ article }: Props) {
             className="avatar"
             src={
               article.author.image
-                ? `https://localhost:7190/${article.author.image}`
+                ? `https://localhost:5000/${article.author.image}`
                 : "https://api.dicebear.com/5.x/thumbs/svg"
             }
             alt="user avatar"
@@ -59,7 +59,7 @@ function ArticleCard({ article }: Props) {
               ?.getText()}
           </div>
         </div>
-        <img src={`https://localhost:7190/${article.image}`} alt="image" />
+        <img src={`https://localhost:5000/${article.image}`} alt="image" />
       </div>
 
       <span className="pill">{article.category.name}</span>

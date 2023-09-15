@@ -4,7 +4,7 @@ import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
 
 axios.defaults.baseURL =
-  process.env.REACT_APP_API_URL || "https://localhost:7190/api";
+  process.env.REACT_APP_API_URL || "https://localhost:5000/api";
 
 console.log(process.env.REACT_APP_API_URL);
 const sleep = (delay: number) => {

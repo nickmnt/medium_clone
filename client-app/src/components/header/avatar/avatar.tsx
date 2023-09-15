@@ -13,7 +13,7 @@ function Avatar() {
       className="avatar"
       src={
         userProfile?.image
-          ? `https://localhost:7190/${userProfile.image}`
+          ? `https://localhost:5000/${userProfile.image}`
           : "https://api.dicebear.com/5.x/thumbs/svg"
       }
       alt="user avatar"

@@ -70,7 +70,7 @@ function MyBlogs() {
                 <tr key={article.id}>
                   <td className="tr-img">
                     <img
-                      src={article.image ? `https://localhost:7190/${article.image}`: "https://api.dicebear.com/5.x/thumbs/svg"}
+                      src={article.image ? `https://localhost:5000/${article.image}`: "https://api.dicebear.com/5.x/thumbs/svg"}
                       alt="image"
                     />{" "}
                     <span onClick={() => navigate(`/read/${article.id}`)}>

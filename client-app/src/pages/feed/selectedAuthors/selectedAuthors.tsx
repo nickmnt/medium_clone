@@ -25,7 +25,7 @@ function SelectedAuthors() {
               className="avatar"
               src={
                 author.image
-                  ? `https://localhost:7190/${author.image}`
+                  ? `https://localhost:5000/${author.image}`
                   : "https://api.dicebear.com/5.x/thumbs/svg"
               }
               alt="user avatar"

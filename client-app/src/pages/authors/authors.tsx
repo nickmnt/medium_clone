@@ -51,7 +51,7 @@ function Authors() {
                     className="rounded-avatar"
                     src={
                       prof.image
-                        ? `https://localhost:7190/${prof.image}`
+                        ? `https://localhost:5000/${prof.image}`
                         : "https://api.dicebear.com/5.x/thumbs/svg"
                     }
                     alt="image"
