@@ -90,7 +90,7 @@ namespace Persistence
         Category = categories[2],
         Title = "متاورس چیست؟",
         IsApproved = true,
-        Photo = new ArticlePhoto { Id = Guid.NewGuid() + ".png", Url = "Resources/Images/158ea524-8b10-4fce-a861-986e4ea6d702.png" }
+        Photo = new ArticlePhoto { Id = Guid.NewGuid() + ".jpg", Url = "Resources/Images/158ea524-8b10-4fce-a861-986e4ea6d702.jpg" }
       };
 
       var comment = new Comment
@@ -128,7 +128,7 @@ namespace Persistence
         Category = categories[1],
         Title = "بازتعریف مدیریت منابع انسانی",
         IsApproved = true,
-        Photo = new ArticlePhoto { Id = Guid.NewGuid() + ".png", Url = "Resources/Images/bb92766a-332e-4298-bc8d-0430019b91a1.png" }
+        Photo = new ArticlePhoto { Id = Guid.NewGuid() + ".jpg", Url = "Resources/Images/bb92766a-332e-4298-bc8d-0430019b91a1.jpg" }
       };
 
       categories[1].Articles.Add(article);
