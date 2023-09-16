@@ -87,7 +87,7 @@ function Prof() {
               className="avatar big-avatar"
               src={
                 up?.image
-                  ? `https://localhost:5000/${up.image}`
+                  ? process.env.REACT_APP_IMG_URL + `${up.image}`
                   : "https://api.dicebear.com/5.x/thumbs/svg"
               }
               alt="user avatar"

@@ -3,10 +3,8 @@ import { PaginatedResult } from "../models/pagination";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
 
-axios.defaults.baseURL =
-  process.env.REACT_APP_API_URL || "https://localhost:5000/api";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-console.log(process.env.REACT_APP_API_URL);
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);

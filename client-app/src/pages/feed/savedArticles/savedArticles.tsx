@@ -33,7 +33,7 @@ function SavedArticles() {
           >
             <img
               className="avatar article-avatar"
-              src={article.image ? `https://localhost:5000/${article.image}` : "https://api.dicebear.com/5.x/thumbs/svg"}
+              src={article.image ? process.env.REACT_APP_IMG_URL + `${article.image}` : "https://api.dicebear.com/5.x/thumbs/svg"}
               alt="user avatar"
             />
             <div className="author-info">

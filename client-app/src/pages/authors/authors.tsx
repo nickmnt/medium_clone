@@ -51,7 +51,7 @@ function Authors() {
                     className="rounded-avatar"
                     src={
                       prof.image
-                        ? `https://localhost:5000/${prof.image}`
+                        ? process.env.REACT_APP_IMG_URL + `${prof.image}`
                         : "https://api.dicebear.com/5.x/thumbs/svg"
                     }
                     alt="image"

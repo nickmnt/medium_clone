@@ -89,7 +89,7 @@ function Read() {
   return (
     <div className="container read-container">
       <div className="article-read-top">
-        <img className="read-img" src={`https://localhost:5000/${article?.image}`} alt="image" />
+        <img className="read-img" src={process.env.REACT_APP_IMG_URL + `${article?.image}`} alt="image" />
 
         <h1>{article?.title}</h1>
 
@@ -102,7 +102,7 @@ function Read() {
             className="avatar"
             src={
               article?.author.image
-                ? `https://localhost:5000/${article?.author.image}`
+                ? process.env.REACT_APP_IMG_URL + `${article?.author.image}`
                 : "https://api.dicebear.com/5.x/thumbs/svg"
             }
             alt="user avatar"
@@ -152,7 +152,7 @@ function Read() {
                   className="avatar"
                   src={
                     commenter?.image
-                      ? `https://localhost:5000/${commenter.image}`
+                      ? process.env.REACT_APP_IMG_URL + `${commenter.image}`
                       : "https://api.dicebear.com/5.x/thumbs/svg"
                   }
                   alt="user avatar"
@@ -177,7 +177,7 @@ function Read() {
               className="avatar"
               src={
                 userProfile?.image
-                  ? `https://localhost:5000/${userProfile.image}`
+                  ? process.env.REACT_APP_IMG_URL + `${userProfile.image}`
                   : "https://api.dicebear.com/5.x/thumbs/svg"
               }
               alt="user avatar"

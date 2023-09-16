@@ -164,7 +164,7 @@ function Blogs() {
                   <img
                     src={
                       article.image
-                        ? `https://localhost:5000/${article.image}`
+                        ? process.env.REACT_APP_IMG_URL + `${article.image}`
                         : "https://api.dicebear.com/5.x/thumbs/svg"
                     }
                     alt="image"

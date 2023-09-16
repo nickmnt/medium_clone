@@ -13,7 +13,7 @@ function Avatar() {
       className="avatar"
       src={
         userProfile?.image
-          ? `https://localhost:5000/${userProfile.image}`
+          ? process.env.REACT_APP_IMG_URL + `${userProfile.image}`
           : "https://api.dicebear.com/5.x/thumbs/svg"
       }
       alt="user avatar"
