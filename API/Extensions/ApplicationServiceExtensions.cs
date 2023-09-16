@@ -91,7 +91,7 @@ namespace API.Extensions
             {
                 options.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:3000","https://localhost:3000");
+                    policy.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:3000", "https://localhost:3000", "http://127.0.0.1:5173","https://127.0.0.1:5173");
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
