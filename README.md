@@ -1,5 +1,9 @@
 # Medium Clone
 
+<h2 align="center">
+  <a href="https://photos.app.goo.gl/hEbjM1DVjAzEQ66q8">📷 𝙲𝚕𝚒𝚌𝚔 𝚝𝚘 𝚜𝚎𝚎 𝚜𝚌𝚛𝚎𝚎𝚗𝚜𝚑𝚘𝚝𝚜</a>
+</h2>
+
 Medium Clone is a web application that replicates the core functionality of the popular blogging platform Medium. It allows users to read, write, and share articles on various topics. This project is built using React.js for the frontend, .Net Core for the backend, and TypeScript for a more robust development experience. It leverages several libraries and technologies, including MobX, Material-UI, Axios, Formik, and React-Router.
 
 ## Table of Contents
