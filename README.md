@@ -1,8 +1,23 @@
 # Medium Clone
 
-<h2 align="center">
-  <a href="https://photos.app.goo.gl/6PugQsToikbRydGr9">📷 𝙲𝚕𝚒𝚌𝚔 𝚝𝚘 𝚜𝚎𝚎 𝚜𝚌𝚛𝚎𝚎𝚗𝚜𝚑𝚘𝚝𝚜</a>
-</h2>
+## 📷 Screenshots
+
+<details>
+  <summary>Screenshots (Hidden) - Click to open!</summary>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/Intro.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/IntroEnd.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/Article.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EndAndComments.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EditArticlesWithSpecialTextEditor.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EditArticlePictureDragOrClick.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/Register.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/ManageAndApproveArticles_Admin.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/ManageCategoriesAndStatistics_Admin.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/ManageEditAndApproveUsersSeeStatistics_Admin.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EditProfile.png?raw=true" alt="Screenshot"></img>
+</details>
+
+## Summary
 
 Medium Clone is a web application that replicates the core functionality of the popular blogging platform Medium. It allows users to read, write, and share articles on various topics. This project is built using React.js for the frontend, .Net Core for the backend, and TypeScript for a more robust development experience. It leverages several libraries and technologies, including MobX, Material-UI, Axios, Formik, and React-Router.
 
