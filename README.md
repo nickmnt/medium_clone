@@ -5,7 +5,7 @@
 <details>
   <summary>Screenshots (Hidden) - Click to open!</summary>
   <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/Intro.png?raw=true" alt="Screenshot"></img>
-  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/IntroEnd.png?raw=true" alt="Screenshot"></img>
+  <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/IntoEnd.png?raw=true" alt="Screenshot"></img>
   <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/Article.png?raw=true" alt="Screenshot"></img>
   <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EndAndComments.png?raw=true" alt="Screenshot"></img>
   <img src="https://github.com/nickmnt/medium_clone/blob/main/screenshots/EditArticlesWithSpecialTextEditor.png?raw=true" alt="Screenshot"></img>
